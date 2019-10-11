@@ -38,7 +38,7 @@ exports.up = function(knex) {
       .unsigned()
       .notNullable()
       .references('id')
-      .inTable('project')
+      .inTable('projects')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
     tbl.string('description', 128)

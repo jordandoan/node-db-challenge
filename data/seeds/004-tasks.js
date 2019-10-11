@@ -2,7 +2,7 @@
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex('tasks').insert([
-          {project_id: 1, description: "create front end", notes: "use react!!!", completed: true},
+          {project_id: 1, description: "create front end", notes: "use react!!!"},
           {project_id: 1, description: "create back end"},
           {project_id: 1, description: "deploy app"},
           {project_id: 2, description: "choose topic"},
