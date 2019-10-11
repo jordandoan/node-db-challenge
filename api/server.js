@@ -22,6 +22,25 @@ server.get("/api/projects", (req,res) => {
     })
 });
 
+server.get("/api/projects/:id", (req,res) => {
+  db.getProjectById(req.params.id)
+    .then(projects => {
+      processCompleted(projects)
+      return projects[0]
+    })
+    .then(project => db.getTasks(req.params.id)
+                        .then(tasks => {
+                          processCompleted(tasks)
+                          project = {...project, tasks: tasks};
+                          return project
+                        }))
+    .then(project => db.getResourcesById(req.params.id)
+                        .then(resources => {
+                          project = {...project, resources: resources}
+                          res.status(200).json(project);
+                        }))
+   })
+
 server.get("/api/resources", (req,res) => {
   db.getResources()
     .then(resources => res.status(200).json(resources));
@@ -64,4 +83,13 @@ server.post("/api/projects/:id/tasks", (req,res) => {
     .then(id => res.status(201).json({id: id[0]}))
 })
 
+function processCompleted(arr) {
+  arr.forEach(idx => {
+    if (idx.completed) {
+      idx.completed = true
+    } else {
+      idx.completed = false
+    }
+  })
+}
 module.exports = server;
