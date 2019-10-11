@@ -28,7 +28,7 @@ server.get("/api/projects/:id", (req,res) => {
       processCompleted(projects)
       return projects[0]
     })
-    .then(project => db.getTasks(req.params.id)
+    .then(project => db.getTasksInfo(req.params.id)
                         .then(tasks => {
                           processCompleted(tasks)
                           project = {...project, tasks: tasks};
