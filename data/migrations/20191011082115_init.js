@@ -6,7 +6,7 @@ exports.up = function(knex) {
       .unique()
       .notNullable();
     tbl.string('description', 128);
-    tbl.boolean('completed').defaultTo(false)
+    tbl.boolean('completed').defaultTo(0)
   })
   .createTable('resources', tbl => {
     tbl.increments();
@@ -44,7 +44,7 @@ exports.up = function(knex) {
     tbl.string('description', 128)
       .notNullable();
     tbl.string('notes', 128)
-    tbl.boolean('completed').defaultTo(false)
+    tbl.boolean('completed').defaultTo(0)
   })
 };
 
